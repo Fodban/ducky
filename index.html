@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ducky by Jason Furie | $Ducky</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #c59b00;
+            font-style: italic;
+        }
+
+        .nav-center {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-center a {
+            color: #c59b00;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-center a:hover {
+            color: #f5b800;
+        }
+
+        .nav-center a.game {
+            color: #ff8c00;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .social-icon.x {
+            background: #c59b00;
+            color: white;
+        }
+
+        .social-icon.telegram {
+            background: #5dade2;
+            color: white;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* Hero Section with Sky Background */
+        .hero {
+            margin-top: 70px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(to bottom, #4a90e2 0%, #87ceeb 50%, #e0f6ff 100%);
+            padding: 80px 20px 100px;
+            overflow: hidden;
+        }
+
+        /* Animated Clouds */
+        .clouds {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 100px;
+            animation: float 30s infinite linear;
+        }
+
+        .cloud::before,
+        .cloud::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 100px;
+        }
+
+        .cloud1 { width: 100px; height: 40px; top: 20%; left: -150px; animation-duration: 45s; }
+        .cloud1::before { width: 50px; height: 50px; top: -25px; left: 10px; }
+        .cloud1::after { width: 60px; height: 40px; top: -15px; left: 40px; }
+
+        .cloud2 { width: 120px; height: 50px; top: 40%; left: -180px; animation-duration: 55s; animation-delay: 5s; }
+        .cloud2::before { width: 60px; height: 60px; top: -30px; left: 15px; }
+        .cloud2::after { width: 70px; height: 50px; top: -20px; left: 50px; }
+
+        .cloud3 { width: 90px; height: 35px; top: 60%; left: -120px; animation-duration: 40s; animation-delay: 10s; }
+        .cloud3::before { width: 45px; height: 45px; top: -20px; left: 10px; }
+        .cloud3::after { width: 55px; height: 35px; top: -15px; left: 40px; }
+
+        .cloud4 { width: 110px; height: 45px; top: 30%; left: -160px; animation-duration: 50s; animation-delay: 15s; }
+        .cloud4::before { width: 55px; height: 55px; top: -27px; left: 12px; }
+        .cloud4::after { width: 65px; height: 45px; top: -18px; left: 45px; }
+
+        .cloud5 { width: 130px; height: 55px; top: 70%; left: -200px; animation-duration: 60s; animation-delay: 20s; }
+        .cloud5::before { width: 65px; height: 65px; top: -32px; left: 18px; }
+        .cloud5::after { width: 75px; height: 55px; top: -22px; left: 55px; }
+
+        @keyframes float {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(100vw + 200px)); }
+        }
+        /* Ducky Image (responsive) */
+        .ducky-image {
+            max-width: 300px;
+            width: 60vw;
+            aspect-ratio: 1/1;
+            background: linear-gradient(135deg, #fde7b8 0%, #f9e0b0 100%);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            border: 5px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ducky-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 12px;
+            display: block;
+        }
+        .ducky-image-img {
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Mobile menu toggle (shown on small screens) */
+        .nav-toggle {
+            display: none;
+            background: transparent;
+            border: 2px solid transparent;
+            font-size: 28px;
+            padding: 6px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #c59b00;
+        }
+
+        /* Respect reduced motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            .cloud, .decorative-ducky, .creator-support {
+                animation: none !important;
+            }
+            * {
+                transition: none !important;
+            }
+        }
+
+        /* Small-phone tweaks */
+        @media (max-width: 420px) {
+            .hero h1 { font-size: 36px; }
+            .hero .subtitle { font-size: 16px; }
+            .cta-buttons { gap: 12px; }
+            .btn { padding: 14px 28px; font-size: 16px; }
+            .ducky-image { width: 52vw; max-width: 220px; }
+        }
+
+        /* Hero Content */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero h1 {
+            font-size: 90px;
+            color: white;
+            text-shadow: 
+                4px 4px 0px #c59b00,
+                -2px -2px 0px #c59b00,
+                2px -2px 0px #c59b00,
+                -2px 2px 0px #c59b00,
+                0 8px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-style: italic;
+            letter-spacing: 2px;
+        }
+
+        .hero .subtitle {
+            font-size: 24px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        /* Info Banner */
+        .info-banner {
+            background: linear-gradient(135deg, #ff9933 0%, #ffb84d 100%);
+            border: 4px solid #c59b00;
+            border-radius: 50px;
+            padding: 20px 50px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+        }
+
+        .info-banner p {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin: 0;
+        }
+
+        /* CTA Buttons */
+        .cta-buttons {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 18px 45px;
+            font-size: 20px;
+            font-weight: bold;
+            border: 4px solid #c59b00;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: #f5b800;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #d19a00;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #c59b00;
+        }
+
+        .btn-secondary:hover {
+            background: #f0f0f0;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Contract Address Banner */
+        .contract-banner {
+            background: linear-gradient(to bottom, #87ceeb 0%, #f5b800 100%);
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contract-box {
+            background: white;
+            border: 4px solid #c59b00;
+            border-radius: 50px;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .contract-text {
+            color: #c59b00;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .copy-btn:hover {
+            transform: scale(1.2);
+        }
+
+        /* About Section */
+        .about-section {
+            background: #f5b800;
+            padding: 80px 40px 100px;
+            min-height: 100vh;
+        }
+
+        .about-section h2 {
+            font-size: 80px;
+            color: white;
+            text-align: center;
+            margin-bottom: 60px;
+            font-weight: bold;
+            font-style: italic;
+            text-shadow: 3px 3px 0px #c59b00;
+        }
+
+        .about-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr min(1000px, 75%) 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .about-left {
+            grid-column: 2 / 3;
+        }
+
+        .about-right {
+            grid-column: 3 / 4;
+        }
+
+        .about-left {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .about-card {
+            background: white;
+            border: 4px solid #c59b00;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .about-card p {
+            color: #333;
+            font-size: 18px;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .about-card strong {
+            color: #c59b00;
+            font-weight: bold;
+        }
+
+        .about-card em {
+            font-style: italic;
+        }
+
+        .about-right {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            position: sticky;
+            top: 100px;
+        }
+
+        .ducky-card {
+            background: linear-gradient(135deg, #b8e6d5 0%, #a8d5e2 100%);
+            border: 5px solid white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ducky-img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .rainbow-card {
+            background: white;
+            border: 5px solid white;
+            border-radius: 20px;
+            padding: 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            height: 150px;
+        }
+
+        .rainbow-gradient {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                #ff0000 0%,
+                #ff7f00 14%,
+                #ffff00 28%,
+                #00ff00 42%,
+                #0000ff 57%,
+                #4b0082 71%,
+                #9400d3 85%,
+                #ff0000 100%
+            );
+            animation: rainbow-shift 3s linear infinite;
+        }
+
+        @keyframes rainbow-shift {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            background: linear-gradient(to bottom, #87ceeb 0%, #5dade2 100%);
+            padding: 100px 40px 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-section h2 {
+            font-size: 80px;
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-style: italic;
+            text-shadow: 
+                4px 4px 0px #2d5016,
+                -2px -2px 0px #2d5016,
+                2px -2px 0px #2d5016,
+                -2px 2px 0px #2d5016;
+        }
+
+        .gallery-subtitle {
+            text-align: center;
+            font-size: 28px;
+            color: white;
+            margin-bottom: 60px;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            padding: 0 20px;
+        }
+
+        .gallery-card {
+            background: white;
+            border: 5px solid #c59b00;
+            border-radius: 25px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .gallery-image {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .ducky-placeholder {
+            font-size: 80px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        .gallery-card h3 {
+            font-size: 24px;
+            color: #c59b00;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .gallery-card p {
+            font-size: 16px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Decorative Duckies */
+        .decorative-ducky {
+            position: absolute;
+            font-size: 120px;
+            opacity: 0.3;
+            filter: blur(2px);
+            animation: float-slow 6s ease-in-out infinite;
+        }
+
+        .decorative-ducky img {
+            width: 0.9em;
+            height: auto;
+            display: block;
+        }
+
+        .left-ducky {
+            bottom: 80px;
+            left: 50px;
+        }
+
+        .right-ducky {
+            bottom: 100px;
+            right: 50px;
+            animation-delay: 3s;
+        }
+
+        @keyframes float-slow {
+            0%, 100% {
+                transform: translateY(0px) rotate(-5deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        /* Meet Matt Furie Section */
+        .matt-furie-section {
+            background: #f5f5f5;
+            padding: 100px 40px;
+        }
+
+        .matt-furie-section h2 {
+            font-size: 80px;
+            color: #f5b800;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-style: italic;
+            text-shadow: 3px 3px 0px #c59b00;
+        }
+
+        .matt-subtitle {
+            text-align: center;
+            font-size: 28px;
+            color: #666;
+            margin-bottom: 60px;
+            font-weight: 600;
+        }
+
+        .matt-container {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .matt-photo {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 6px solid #f5b800;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .matt-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .matt-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .matt-bio {
+            background: linear-gradient(135deg, #f8e7b0, #f6dfa0);
+            border: 4px solid #c59b00;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .matt-bio p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #c59b00;
+            margin-bottom: 20px;
+        }
+
+        .matt-bio p:last-child {
+            margin-bottom: 0;
+        }
+
+        .matt-bio strong {
+            font-weight: bold;
+            color: #2d5016;
+        }
+
+        /* Creator Support - Breathing Animation */
+        .creator-support {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: #f5b800;
+            border: 6px solid #c59b00;
+            border-radius: 30px;
+            padding: 50px 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            animation: breathe 3s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            }
+            50% {
+                transform: scale(1.02);
+                box-shadow: 0 15px 60px rgba(245, 184, 10, 0.4);
+            }
+        }
+
+        .creator-support h3 {
+            font-size: 48px;
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: bold;
+            font-style: italic;
+            text-shadow: 3px 3px 0px #c59b00;
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .support-card {
+            background: linear-gradient(135deg, #f4c542, #f5b800);
+            border: 4px solid #c59b00;
+            border-radius: 20px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .support-percentage {
+            font-size: 80px;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 4px 4px 0px #c59b00;
+        }
+
+        .support-card h4 {
+            font-size: 24px;
+            color: white;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .support-card p {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        /* Tokenomics Section */
+        .tokenomics-section {
+            background: linear-gradient(to bottom, #87ceeb 0%, #5dade2 100%);
+            padding: 100px 40px 120px;
+        }
+
+        .tokenomics-section h2 {
+            font-size: 80px;
+            color: white;
+            text-align: center;
+            margin-bottom: 60px;
+            font-weight: bold;
+            font-style: italic;
+            text-shadow: 
+                4px 4px 0px #f5b800,
+                -2px -2px 0px #f5b800,
+                2px -2px 0px #f5b800,
+                -2px 2px 0px #f5b800;
+        }
+
+        .tokenomics-grid {
+            max-width: 1400px;
+            margin: 0 auto 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .token-card {
+            background: white;
+            border: 5px solid #c59b00;
+            border-radius: 25px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .token-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .token-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        .token-value {
+            font-size: 56px;
+            color: #c59b00;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .token-label {
+            font-size: 20px;
+            color: #c59b00;
+            font-weight: bold;
+        }
+
+        .tokenomics-banner {
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #ff9933 0%, #ffb84d 100%);
+            border: 5px solid #c59b00;
+            border-radius: 30px;
+            padding: 35px 50px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .tokenomics-banner p {
+            font-size: 28px;
+            color: white;
+            margin: 0;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .tokenomics-banner strong {
+            font-weight: bold;
+        }
+
+        .banner-subtext {
+            font-size: 18px !important;
+            margin-top: 10px !important;
+            opacity: 0.95;
+        }
+
+        /* How To Buy Section */
+        .howtobuy-section {
+            background: #f5b800;
+            padding: 100px 40px 120px;
+        }
+
+        .howtobuy-section h2 {
+            font-size: 80px;
+            color: white;
+            text-align: center;
+            margin-bottom: 60px;
+            font-weight: bold;
+            font-style: italic;
+            text-shadow: 
+            4px 4px 0px #c59b00,
+            -2px -2px 0px #c59b00,
+            2px -2px 0px #c59b00,
+            -2px 2px 0px #c59b00;
+        }
+
+        .howtobuy-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .step-card {
+            background: white;
+            border: 5px solid #c59b00;
+            border-radius: 25px;
+            padding: 40px 35px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .step-icon {
+            font-size: 70px;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+
+            .step-card h3 {
+                font-size: 28px;
+                color: #c59b00;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .step-card p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* Community Section */
+        .community-section {
+            background: linear-gradient(to bottom, #87ceeb 0%, #5dade2 100%);
+            padding: 100px 40px 120px;
+        }
+
+        .community-section h2 {
+            font-size: 80px;
+            color: #5a9c2e;
+            text-align: center;
+            margin-bottom: 60px;
+            font-weight: bold;
+            font-style: italic;
+            text-shadow: 
+                4px 4px 0px white,
+                -2px -2px 0px white,
+                2px -2px 0px white,
+                -2px 2px 0px white;
+        }
+
+        .community-grid {
+            max-width: 1000px;
+            margin: 0 auto 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .community-card {
+            background: white;
+            border: 5px solid #2d5016;
+            border-radius: 25px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            text-decoration: none;
+            display: block;
+        }
+
+        .community-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .twitter-card {
+            background: #1a4d2e;
+        }
+
+        .telegram-card {
+            background: #87ceeb;
+        }
+
+        .community-icon {
+            font-size: 80px;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        .community-icon img {
+            width: 1em;
+            height: 1em;
+            display: block;
+            object-fit: contain;
+        }
+
+        .twitter-card .community-icon {
+            color: white;
+        }
+
+        .telegram-card .community-icon {
+            color: white;
+        }
+
+        .community-card h3 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .twitter-card h3 {
+            color: white;
+        }
+
+        .telegram-card h3 {
+            color: white;
+        }
+
+        .community-card p {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .twitter-card p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .telegram-card p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Feels Good Card */
+        .feels-good-card {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #5a9c2e;
+            border: 5px solid #2d5016;
+            border-radius: 30px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .feels-good-ducky {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 30px;
+            background: white;
+            border: 4px solid #2d5016;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .feels-ducky-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .feels-good-card h3 {
+            font-size: 48px;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-style: italic;
+            text-shadow: 3px 3px 0px #2d5016;
+        }
+
+        .feels-good-card p {
+            font-size: 22px;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer-section {
+            background: linear-gradient(#f2b400,#f5c542);
+            color: rgba(255,255,255,0.95);
+            padding: 48px 20px 36px;
+            text-align: center;
+        }
+
+        .footer-title {
+            font-size: 34px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        .footer-sub {
+            max-width: 900px;
+            margin: 0 auto 22px;
+            color: rgba(255,255,255,0.92);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Contract box (small centered pill) */
+        .contract-box-footer {
+            display: inline-block;
+            background: linear-gradient(135deg,#d19a00,#f5b800);
+            color: white;
+            border-radius: 18px;
+            padding: 14px 26px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            margin: 14px 0;
+        }
+
+        /* Social icons row */
+        .footer-socials {
+            margin-top: 18px;
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .footer-social {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+
+        /* Example brand colors (customize as needed) */
+        .footer-social.x { background:#c59b00; }
+        .footer-social.web { background:#6fc1f3; color:#063a5b; }
+
+        /* thin gradient divider */
+        .footer-divider {
+            height: 6px;
+            width: 84%;
+            max-width: 1200px;
+            margin: 28px auto;
+            border-radius: 6px;
+            background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(245,184,10,0.7) 20%, rgba(245,184,10,0.7) 80%, rgba(0,0,0,0) 100%);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15) inset;
+        }
+
+        /* copyright / small text */
+        .footer-bottom {
+            margin-top: 18px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.75);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+
+            .about-left, .about-right {
+                grid-column: auto;
+            }
+
+            .about-right {
+                position: relative;
+                top: 0;
+            }
+
+            .contract-text {
+                font-size: 14px;
+            }
+
+            .contract-box {
+                padding: 15px 25px;
+            }
+
+            .about-section h2 {
+                font-size: 50px;
+            }
+
+            .gallery-section h2 {
+                font-size: 50px;
+            }
+
+            .gallery-subtitle {
+                font-size: 22px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 30px;
+            }
+
+            .decorative-ducky {
+                font-size: 80px;
+            }
+
+            .matt-furie-section h2 {
+                font-size: 50px;
+            }
+
+            .matt-subtitle {
+                font-size: 22px;
+            }
+
+            .matt-container {
+                grid-template-columns: 1fr;
+                justify-items: center;
+                gap: 40px;
+            }
+
+            .creator-support h3 {
+                font-size: 36px;
+            }
+
+            .support-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tokenomics-section h2 {
+                font-size: 50px;
+            }
+
+            .tokenomics-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .tokenomics-banner {
+                padding: 30px 40px;
+            }
+
+            .tokenomics-banner p {
+                font-size: 22px;
+            }
+
+            .banner-subtext {
+                font-size: 16px !important;
+            }
+
+            .howtobuy-section h2 {
+                font-size: 50px;
+            }
+
+            .howtobuy-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .community-section h2 {
+                font-size: 50px;
+            }
+
+            .community-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feels-good-card h3 {
+                font-size: 38px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 50px;
+            }
+
+            .hero .subtitle {
+                font-size: 18px;
+            }
+
+            .ducky-image {
+                width: 220px;
+                height: 220px;
+                font-size: 120px;
+            }
+
+            .nav-center {
+                display: none;
+            }
+
+            .info-banner {
+                padding: 15px 30px;
+            }
+
+            .info-banner p {
+                font-size: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            .contract-text {
+                font-size: 12px;
+            }
+
+            .about-section h2 {
+                font-size: 40px;
+            }
+
+            .gallery-section h2 {
+                font-size: 40px;
+            }
+
+            .gallery-subtitle {
+                font-size: 18px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .decorative-ducky {
+                display: none;
+            }
+
+            .matt-furie-section h2 {
+                font-size: 40px;
+            }
+
+            .matt-subtitle {
+                font-size: 18px;
+            }
+
+            .matt-photo {
+                width: 250px;
+                height: 250px;
+            }
+
+            .matt-bio {
+                padding: 30px;
+            }
+
+            .creator-support {
+                padding: 40px 30px;
+            }
+
+            .creator-support h3 {
+                font-size: 28px;
+            }
+
+            .support-percentage {
+                font-size: 60px;
+            }
+
+            .support-card h4 {
+                font-size: 20px;
+            }
+
+            .tokenomics-section h2 {
+                font-size: 40px;
+            }
+
+            .tokenomics-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+
+            .token-icon {
+                font-size: 50px;
+            }
+
+            .token-value {
+                font-size: 42px;
+            }
+
+            .token-label {
+                font-size: 18px;
+            }
+
+            .tokenomics-banner {
+                padding: 25px 30px;
+            }
+
+            .tokenomics-banner p {
+                font-size: 18px;
+            }
+
+            .banner-subtext {
+                font-size: 14px !important;
+            }
+
+            .howtobuy-section h2 {
+                font-size: 40px;
+            }
+
+            .howtobuy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .step-icon {
+                font-size: 60px;
+            }
+
+            .step-card h3 {
+                font-size: 24px;
+            }
+
+            .step-card p {
+                font-size: 15px;
+            }
+
+            .community-section h2 {
+                font-size: 40px;
+            }
+
+            .community-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .community-card {
+                padding: 40px 30px;
+            }
+
+            .community-icon {
+                font-size: 70px;
+            }
+
+            .community-card h3 {
+                font-size: 28px;
+            }
+
+            .feels-good-card {
+                padding: 50px 30px;
+            }
+
+            .feels-good-card h3 {
+                font-size: 32px;
+            }
+
+            .feels-good-card p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">$Ducky</div>
+            <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+            <ul class="nav-center collapsed">
+                <li><a href="#about">About</a></li>
+                <li><a href="#matt">Jason Furie</a></li>
+                <li><a href="#tokenomics">Tokenomics</a></li>
+                <li><a href="#howtobuy">How to Buy</a></li>
+                <li><a href="#community">Community</a></li>
+            </ul>
+            <div class="nav-right">
+                <a href="https://x.com/Ducky376256" target="_blank" rel="noopener noreferrer" aria-label="Open X in new tab"><div class="social-icon x">𝕏</div></a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <!-- Animated Clouds -->
+        <div class="clouds">
+            <div class="cloud cloud1"></div>
+            <div class="cloud cloud2"></div>
+            <div class="cloud cloud3"></div>
+            <div class="cloud cloud4"></div>
+            <div class="cloud cloud5"></div>
+        </div>
+
+        <div class="hero-content">
+            <div class="ducky-image">
+                <img src="image.jpg/top.jpg" alt="ducky" class="ducky-image-img" loading="eager">
+            </div>
+            
+            <h1>Ducky by Jason Furie</h1>
+            <p class="subtitle">The Next runner on solana. nothing can stop ducky….From mooning</p>
+            
+            <div class="info-banner">
+                <p> 100% Creator Rewards go to Jason Furie</p>
+            </div>
+
+            <div class="cta-buttons">
+                <a href="https://pump.fun/coin/D2bqdXF47MnoTsT5H5W64sb13M58w5DBuAqiJbQ4pump" class="btn btn-primary">BUY NOW ↗</a>
+                <a href="https://dexscreener.com/solana/dhdsqlcxpccna7ham7lvvpenf8smzugipdsrctcxfnx3" class="btn btn-secondary">LIVE CHART ↗</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contract Address Banner -->
+    <div class="contract-banner">
+        <div class="contract-box">
+            <span class="contract-text">D2bqdXF47MnoTsT5H5W64sb13M58w5DBuAqiJbQ4pump</span>
+            <button class="copy-btn">📋</button>
+        </div>
+    </div>
+
+    <section id="about" class="about-section">
+        <h2>About</h2>
+        
+        <div class="about-container">
+            <div class="about-left">
+                <div class="about-card">
+                    <p><strong>Ducky</strong> is a cartoon duck character illustrated by artist <strong>Jason Furie.</strong>  Designed as a small, soft-colored yellow duck with wide, expressive eyes, Ducky represents gentle emotion, quiet humor, and a calm, friendly presence.
+
+
+The character is usually shown in peaceful or playful scenes, focusing more on mood and feeling than on story making Ducky a visual expression of calm happiness, innocent curiosity, and quiet contentment.</p>
+                </div>
+                
+                             <h2>Internet presence and cultural spread 
+</h2>
+                <div class="about-card">
+                    <p>Ducky spread online as a reaction character for calm, friendly emotions and is now recognized as a soft-meme symbol for gentle positivity and peaceful humor.</p>
+                </div>
+                <h2>Different types of Ducky expressions 
+</h2>
+                <div class="about-card">
+                    <p>Different Ducky expressions include calm, curious, shy, happy, sleepy, and content versions each showing a slightly different gentle emotion, Rather than fixed meme templates, Ducky works as a flexible emotional symbol, using small changes in expression or setting to communicate mood while keeping a consistent, friendly tone.</p>
+                </div>
+
+                <h2>Since its emergence online 
+</h2>
+                <div class="about-card">
+                    <p>Since appearing online, Ducky has spread organically as a symbol of calm joy, gentle humor, and emotional warmth. It is now used across digital communities as a mood character for friendliness and peaceful connection.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ducky Gallery Section -->
+    <section class="gallery-section">
+        <h2>Ducky Gallery</h2>
+        <p class="gallery-subtitle">The Many Faces of Ducky</p>
+        
+        <div class="gallery-grid">
+            <div class="gallery-card">
+                <div class="gallery-image" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">
+                    <img src="image.jpg/crypto%20ducky.jpg" alt="Ducky" loading="lazy" />
+                </div>
+                <h3>Crypto Ducky</h3>
+                <p>Diamond hands only</p>
+               
+
+            </div>
+            
+            <div class="gallery-card">
+                <div class="gallery-image" style="background: linear-gradient(135deg, #f59e0b, #dc2626);">
+                    <img src="image.jpg/strong%20ducky.jpg" alt="Strong Ducky" loading="lazy" />
+                </div>
+                <h3>Strong Ducky</h3>
+                <p>Power level over 10000</p>
+               
+            </div>
+            
+            <div class="gallery-card">
+                <div class="gallery-image" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);">
+                    <img src="image.jpg/king%20ducky.jpg" alt="Crypto Ducky" loading="lazy" />
+                </div>
+                <h3>King Ducky</h3>
+                <p>Ruler of the memes</p>
+            </div>
+            
+            <div class="gallery-card">
+                <div class="gallery-image" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">
+                    <img src="image.jpg/president%20ducky.jpg" alt="King Ducky" loading="lazy" />
+                </div>
+                <h3>President Ducky
+</h3>
+                <p>Make America great  again</p>
+            </div>
+             <div class="gallery-card">
+                <div class="gallery-image" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">
+                    <img src="image.jpg/cozy%20ducky.jpg" alt="Cozy Ducky" loading="lazy" />
+                </div>
+                <h3>Cozy ducky
+</h3>
+                <p>Morning coffee vibes</p>
+            </div>
+
+             <div class="gallery-card">
+                <div class="gallery-image" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">
+                    <img src="image.jpg/m%20ducky.jpg" alt="Cozy Ducky" loading="lazy" />
+                </div>
+                <h3>Mafia Boss Ducky 
+
+</h3>
+                <p>Overseer of all the memes cabal</p>
+            </div>
+
+
+        </div>
+        
+        <!-- Decorative Duckies -->
+        <div class="decorative-ducky left-ducky"><img src="image.jpg/float1.jpg" alt="Decorative Ducky" loading="lazy" /></div>
+        <div class="decorative-ducky right-ducky"><img src="image.jpg/float2.jpg" alt="Decorative Ducky" loading="lazy" /></div>
+    </section>
+
+    <!-- Meet Matt Furie Section -->
+    <section id="matt" class="matt-furie-section">
+        <h2>Meet Jason Furie</h2>
+        <p class="matt-subtitle">The Original Creator of Ducky</p>
+        
+        <div class="matt-container">
+            <div class="matt-photo">
+                <img src="image.jpg/dev%20image.jpg" alt="Matt Furie" class="matt-img" loading="lazy">
+            </div>
+            
+            <div class="matt-info">
+                <div class="matt-bio">
+                    <p><strong>Jason Furie</strong> is an American illustrator and digital artist known for his soft, expressive cartoon style and emotionally resonant characters. His work on Ducky helped shape the modern internet aesthetic around gentle humor, warmth, and visual storytelling.
+
+This token is a tribute to Jason Furie’s artistic influence on Ducky and is designed to ensure the original creator benefits from the community’s appreciation of his work.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="creator-support">
+            <h3>🎨 Supporting the creator 🦆
+</h3>
+            
+            <div class="support-grid">
+                <div class="support-card">
+                    <div class="support-percentage">100%</div>
+                    <h4>Creator Rewards on Pump.fun
+</h4>
+                    <p>All creator fees go directly to Jason Furie once he accepts</p>
+                </div>
+                
+                <div class="support-card">
+                    <div class="support-percentage">10%</div>
+                    <h4>Supply Sent to Jason Furie</h4>
+                    <p>Supporting the original artist</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tokenomics Section -->
+    <section id="tokenomics" class="tokenomics-section">
+        <h2></h2>
+        
+        <div class="tokenomics-banner">
+            <p>🎨 <strong>100% of the creator rewards will be donated to Jason Furie once he accepts</strong> 🦆</p>
+            <p class="banner-subtext"></p>
+        </div>
+    </section>
+
+    <!-- How To Buy Section -->
+    <section id="howtobuy" class="howtobuy-section">
+        <h2>How To Buy</h2>
+        
+        <div class="howtobuy-grid">
+            <div class="step-card">
+                <div class="step-icon">🛄</div>
+                <h3>Create a Wallet</h3>
+                <p>Download Phantom or your wallet of choice from the app store or google play store for free. Desktop users, download the browser extension by going to phantom.app.</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-icon">⬇️⬆️</div>
+                <h3>Get Some SOL</h3>
+                <p>Have SOL in your wallet to swap for $DUCKY. If you don't have any SOL, you can buy directly on Phantom, transfer from another wallet, or buy on an exchange and send it to your wallet.</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-icon">🔄</div>
+                <h3>Go to Pump.fun</h3>
+                <p>Connect to Pump.fun. Paste the $DUCKY token contract address, select $DUCKY, and confirm. When your wallet prompts you for a signature, sign it.</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-icon">🦆</div>
+                <h3>Swap SOL for $DUCKY</h3>
+                <p>Swap SOL for $DUCKY. We have ZERO taxes so you don't need to worry about buying with a specific slippage, although you may need to use slippage during times of market volatility.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="community-section">
+        <h2>Join Our Community</h2>
+        
+        <div class="community-grid">
+            <a href="https://x.com/Ducky376256" target="_blank" class="community-card twitter-card">
+                <div class="community-icon">𝕏</div>
+                <h3>Official Twitter</h3>
+                <p>@Ducky376256 ↗</p>
+            </a>
+            
+            <a href="https://www.instagram.com/jasonfurie" target="_blank" class="community-card telegram-card">
+                <div class="community-icon"><img src="image.jpg/download-removebg-preview.png" alt="📷" class="community-icon-img" loading="lazy" /></div>
+                <h3>Instagram</h3>
+                <p> ↗</p>
+            </a>
+        </div>
+        
+        <div class="feels-good-card">
+            <div class="feels-good-ducky">
+                <img src="image.jpg/feelsgood.jpg" alt="Feels Good Ducky" class="feels-ducky-img" loading="lazy">
+            </div>
+            <h3>Feels Good Man! 🦆</h3>
+            <p>Join thousands of ducks in the community</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <section class="footer-section" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="footer-title">Ducky by Jason Furie</h2>
+  <p class="footer-sub">Ducky a visual expression of calm happiness, innocent curiosity, and quiet contentment..</p>
+
+  <div class="contract-box-footer" role="region" aria-label="Contract address">
+    Contract Address: <span style="font-weight:700; margin-left:8px;">D2bqdXF47MnoTsT5H5W64sb13M58w5DBuAqiJbQ4pump</span>
+  </div>
+
+  <div class="footer-socials" aria-hidden="false">
+    <a class="footer-social x" href="https://x.com/Ducky376256" target="_blank" rel="noopener noreferrer" aria-label="Open X in new tab">𝕏</a>
+    <a class="footer-social web" href="https://www.jasonfurie.com/illustration" target="_blank" rel="noopener noreferrer" aria-label="Open instagram in new tab">🌐</a>
+  </div>
+
+  <div class="footer-divider" role="separator" aria-hidden="true"></div>
+
+  <div class="footer-bottom">
+    © 2025 Ducky by Jason Furie.©2025 Ducky by Jason Furie. All rights reserved
+  </div>
+</section>
+
+    <script>
+        // Mobile nav toggle
+        (function() {
+            const navToggle = document.querySelector('.nav-toggle');
+            const navCenter = document.querySelector('.nav-center');
+            if (navToggle && navCenter) {
+                navToggle.addEventListener('click', () => {
+                    navCenter.classList.toggle('show');
+                });
+                document.querySelectorAll('.nav-center a').forEach(a => {
+                    a.addEventListener('click', () => navCenter.classList.remove('show'));
+                });
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('.nav-container')) navCenter.classList.remove('show');
+                });
+            }
+        })();
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Copy contract address
+        const copyBtn = document.querySelector('.copy-btn');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', function() {
+                const contractText = document.querySelector('.contract-text').textContent;
+                if (navigator.clipboard && contractText) {
+                    navigator.clipboard.writeText(contractText).then(() => {
+                        this.textContent = '✅';
+                        setTimeout(() => { this.textContent = '📋'; }, 2000);
+                    }).catch(() => {
+                        // fallback: select + execCommand (older browsers)
+                        const ta = document.createElement('textarea');
+                        ta.value = contractText;
+                        document.body.appendChild(ta);
+                        ta.select();
+                        try { document.execCommand('copy'); this.textContent = '✅'; }
+                        catch (e) { /* ignore */ }
+                        ta.remove();
+                        setTimeout(() => { this.textContent = '📋'; }, 2000);
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
